@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>
+      Patient List
+    </ion-title>
+    <ion-buttons end>
+    	<button ion-button icon-only (click)="addPatient()"><ion-icon name="md-add-circle"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	 <div class="row header">
+	 	  <div class="col">S.No</div>
+          <div class="col">Name</div>
+          <div class="col">Age</div>
+          <div class="col">Gender</div>
+          <div class="col">Status</div>
+          <div class="col">Edit</div>          
+
+        </div>
+        <div class="row" *ngFor="let data of ledger; let i = index">
+		  <div class="col">{{i+1}}</div>	
+          <div class="col">{{data.name}}</div>
+          <div class="col">{{data.age}}</div>
+          <div class="col">{{data.gender}}</div>
+          <div class="col" >
+          	<ion-checkbox *ngIf="ledger[i].active; else cancelled;" [(ngModel)]="ledger[i].status"></ion-checkbox>
+          	<ng-template #cancelled><p>{{reason[data.reasonOfCancellation]}}</p></ng-template>
+          </div>        
+          <div class="col">
+          	<button *ngIf="ledger[i].active" ion-button icon-only (click)="editPatient(i)" small>
+          		<ion-icon name="md-add-circle"></ion-icon>
+          	</button>
+          </div>          
+        </div>
+</ion-content>
