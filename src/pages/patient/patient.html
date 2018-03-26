@@ -7,37 +7,54 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>{{ doc }}</ion-title>
+    <ion-title text-center>{{ doctor }}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <form #f ="ngForm" (ngSubmit)= "onSubmit(f)">
- <ion-list class="city">
+
+<form [formGroup]="patientForm" (ngSubmit)="putPatient(patientForm.value)">
+
+<div formArrayName="patients">
+<ion-card *ngFor="let patient of patientForm.controls['patients'].controls;let i = index">
+<ion-card-content [formGroupName]="i">
+  
   <ion-item>
-    <ion-label floating>Name</ion-label>
-    <ion-input type="text" name="name" ngModel required></ion-input>
-  </ion-item>
+    <ion-label for="name">Name:</ion-label>
+    <ion-input type='text' formControlName="name"></ion-input>
+  </ion-item> 
+
   <ion-item>
-    <ion-label floating>Age</ion-label>
-    <ion-input type="text" name="age" ngModel required></ion-input>
+    <ion-label for="age">Age:</ion-label>
+    <ion-input type='number' formControlName="age"></ion-input>
   </ion-item>
+
   <ion-item>
-    <ion-label floating>Gender</ion-label>
-    <ion-select name="gaming" ngModel required>
-      <ion-option value="male">NES</ion-option>
-      <ion-option value="female">Nintendo64</ion-option>
-  </ion-select>
-</ion-item>
-<ion-item>
-    <ion-label float>Slot</ion-label>
-    <ion-input type="text" name="slot" ngModel required></ion-input>
-  </ion-item>
- </ion-list>
- <button ion-button [disabled] = !f.valid float-right class="list" (click)="list()">Add more</button>
- <button ion-button [disabled]=!f.valid margin-top class="confirm">&emsp;Confirm Booking&emsp;</button>
+    <ion-label for="gender">Gender:</ion-label>
+    <ion-select formControlName="gender">
+      <ion-option value="M">Male</ion-option>
+      <ion-option value="F">Female</ion-option>
+      <ion-option value="O">Other</ion-option>
+    </ion-select>
+  </ion-item>  
+
+
+</ion-card-content> 
+</ion-card>  
+</div>
+
+
+<br>
+
+<button type="button" ion-button smasll (click)="addPatient()" float-left outline><ion-icon name="add"></ion-icon></button>
+
+<br>
+
+   <ion-item padding *ngIf="patientForm.controls['patients'].length>0">
+     <button ion-button type="submit">Save</button>
+    </ion-item>
 </form>
 
 </ion-content>

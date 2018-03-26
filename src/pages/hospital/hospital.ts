@@ -1,27 +1,52 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-//import { UserPage } from '../user/user';
-import { UserService } from '../../services/doctor-services/services.hospital';
 import { DoctorPage } from '../doctor/doctor';
-
+import { ManageDataService } from '../../services/manage-data/services.managedata';
 
 @Component({
   selector: 'page-hospital',
   templateUrl: 'hospital.html',
 })
 export class HospitalPage {
+  country:any;
+  state:any;
   city:any;
-  hospitals:string[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, private user: UserService ) {
+  hospital:any;
+
+  hospitals=[];
+  constructor(public navCtrl: NavController, public navParams: NavParams,private mnds: ManageDataService ) {
    
-   this.city= this.navParams.get('city');
-   console.log("city got from city page:",this.city);
-   this.hospitals= this.user.getallhospitals(this.city);
+   this.country = this.navParams.get('country');
+   this.state = this.navParams.get('state');
+   this.city = this.navParams.get('city');
+
+   this.mnds.getHospital(this.country,this.state,this.city)
+   .subscribe(data => {
+     if(typeof data == 'string') {
+
+      this.mnds.presentToast(data);
+
+     }
+
+     else {
+
+        this.country = data.country;
+        this.state = data.state;
+        this.city = data.city;
+
+        this.hospitals = data.hospitals;
+
+     }
+
+   });
    
   }
- showDoctors(i:number){
- 	console.log("show me i in hospital page:",i);
-    this.navCtrl.push(DoctorPage,{data:{city:this.city,hospital:this.hospitals[i]}})
+
+ findDoctor(hospitalfocus){
+ 
+    this.hospital = hospitalfocus;
+    this.navCtrl.push(DoctorPage,{"country":this.country,"state":this.state,"city":this.city, "hospital":this.hospital});
+ 
  }
 
 }

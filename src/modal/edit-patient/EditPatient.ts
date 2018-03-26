@@ -23,15 +23,15 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   <ion-list>
       <ion-item>
         <ion-label fixed>Name</ion-label>
-        <ion-input type="text" formControlName="name"></ion-input>
+        <ion-input type="text" formControlName="name" [disabled]=true></ion-input>
       </ion-item>
       <ion-item>
         <ion-label fixed>Age</ion-label>
-        <ion-input type="number" formControlName="age"></ion-input>
+        <ion-input type="number" formControlName="age" [disabled]=true></ion-input>
       </ion-item>
       <ion-item>
         <ion-label fixed>Gender</ion-label>
-        <ion-select formControlName="gender">
+        <ion-select formControlName="gender" [disabled]=true>
         <ion-option value="M">Male</ion-option>
         <ion-option value="F">Female</ion-option>
         <ion-option value="O">Other</ion-option>        

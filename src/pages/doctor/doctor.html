@@ -15,31 +15,44 @@
 
 
 <ion-content padding class="back">
+<ion-grid>
 
-<ion-card *ngFor="let doctor of doctorList;let i=index" class="back-card">
+<ion-card *ngFor="let doctor of doctors;let i=index" class="back-card">
   
   <ion-card-header>
-  	<ion-icon name="ios-lock" item-start> {{doctor.name}}</ion-icon>
+  	<ion-icon name="person" item-start> {{doctor.doctor}}</ion-icon>
    
   </ion-card-header>
     
   <ion-card-content >
-     {{doctor.speciality}}
      <ion-item>
-	  <ion-icon name="ios-lock" item-start></ion-icon>
-	  Current Status
-	  <ion-badge color="safe" item-end>{{doctor.currentNum}}</ion-badge>
+     <ion-row>
+    <ion-col>
+	  <ion-icon name="medkit" item-start></ion-icon>
+	  Speciality
+  </ion-col>
+  </ion-row>
+  <ion-row>
+  <ion-col *ngFor="let spec of specialityfinal[i];">
+	  <ion-badge color="safe" item-end>{{spec}}</ion-badge>
+  </ion-col>
+</ion-row>
 	</ion-item>
 	<ion-item>
-	  <ion-icon name="ios-lock-outline" item-start></ion-icon>
-	  Seat Remaining 
-	  <ion-badge color="danger" item-end>{{doctor.seatRem}}</ion-badge>
+	  <ion-icon name="cash" item-start></ion-icon>
+	  Fare
+	  <ion-badge color="green" item-end>&#8377;&nbsp;{{doctor.fare}}</ion-badge>
 	</ion-item>
 	<ion-item>
-		<button ion-button outline (click)="book(i)" class="book">Book</button>
+    <ion-row>
+  <ion-col>
+    <button ion-button outline (click)="checkAvailability(i)" class="book" float-right small>Check Availability</button>
+  </ion-col> 
+  </ion-row> 
 	  </ion-item>
   </ion-card-content>
 
 </ion-card>
+</ion-grid>
 </ion-content>
  

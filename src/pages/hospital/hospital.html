@@ -16,8 +16,8 @@
 <ion-content padding class="back">
 <h2 style="text-align:center;">Select hospital</h2>
 <ion-list inset>
-  <button ion-item outline *ngFor="let hospital of hospitals;let i=index" (click)=showDoctors(i) class="back-card" margin-bottom text-center>
-    {{ hospital }}
+  <button ion-item outline *ngFor="let hospital of hospitals;let i=index" (click)=findDoctor(hospital.hospital) class="back-card" margin-bottom text-center>
+    {{ hospital.hospital }}
   </button>
 
 </ion-list>
